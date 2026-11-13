@@ -1,0 +1,110 @@
+/* Trang Tài khoản — chỉ áp dụng cho các class bắt đầu bằng acc-/addr-/ord- */
+.acc{max-width:1120px;margin:0 auto;padding:44px 24px 96px}
+.acc-top{margin-bottom:28px}
+.acc-top .eyebrow{display:block;margin-bottom:6px}
+.acc-top h1{font:800 clamp(30px,4vw,42px) var(--d);letter-spacing:-.05em;line-height:1.1}
+.acc-grid{display:grid;grid-template-columns:320px minmax(0,1fr);gap:24px;align-items:start}
+.acc-side{display:grid;gap:16px;position:sticky;top:112px}
+.acc-main{display:grid;gap:24px}
+
+.acc-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:0 14px 40px #201b140a}
+
+/* Thẻ người dùng */
+.acc-user{display:grid;justify-items:center;text-align:center;gap:4px}
+.acc-avatar{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--orange),#ff9a5c);color:#fff;font:800 36px var(--d);margin-bottom:10px;box-shadow:0 12px 30px #fb622e45}
+.acc-user h2{font:800 20px var(--d);letter-spacing:-.04em;word-break:break-word}
+.acc-user .mail{font-size:13px;color:var(--mute);word-break:break-all}
+.acc-logout{margin-top:18px;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);font:800 13px var(--b);cursor:pointer;transition:.2s}
+.acc-logout:hover{border-color:var(--orange);color:var(--orange);background:var(--peach)}
+
+/* Thẻ điểm thưởng */
+.acc-points{background:var(--coal);color:#fff;border-radius:22px;padding:26px;position:relative;overflow:hidden}
+.acc-points::after{content:"✳";position:absolute;right:-18px;top:-26px;font-size:130px;color:#ffffff0d;line-height:1}
+.acc-points small{display:block;font:800 11px var(--b);letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
+.acc-points strong{display:block;font:800 52px var(--d);letter-spacing:-.07em;line-height:1.1;margin:8px 0 2px}
+.acc-points .val{font-size:14px;color:#ffffffcc}
+.acc-points p{margin-top:16px;padding-top:14px;border-top:1px solid #ffffff1f;font-size:12px;line-height:1.7;color:#ffffff99}
+
+/* Tiêu đề từng khối */
+.acc-sec-h{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.acc-ic{width:42px;height:42px;border-radius:13px;background:var(--peach);color:var(--orange);display:grid;place-items:center;font-size:19px;flex:none}
+.acc-sec-h h2{font:800 20px var(--d);letter-spacing:-.04em;line-height:1.2}
+.acc-sec-h p{font-size:13px;color:var(--mute);margin-top:2px}
+.acc-count{margin-left:auto;background:var(--ink);color:#fff;border-radius:100px;padding:3px 12px;font:800 12px var(--b)}
+
+/* Form */
+.acc-form{display:grid;gap:16px;margin:0}
+.acc-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.acc-form label{display:grid;gap:8px;font:800 11px var(--b);letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.acc-form input{padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:#fcfcfa;font:500 14px var(--b);letter-spacing:0;text-transform:none;color:var(--ink);transition:.18s}
+.acc-form input::placeholder{color:#b5b4ae}
+.acc-form input:focus{outline:0;border-color:var(--orange);background:#fff;box-shadow:0 0 0 4px #fb622e1a}
+.acc-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.acc-actions .btn{padding:14px 28px}
+.acc-msg{font-size:13px;font-weight:700;color:var(--ok)}
+.acc-msg.err{color:#d63d1a}
+
+/* Sổ địa chỉ */
+.addr-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:18px}
+.addr{border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:grid;gap:6px;background:#fcfcfa;align-content:start}
+.addr.def{border-color:var(--orange);background:var(--peach)}
+.addr-h{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.addr-h b{font:800 14px var(--d);letter-spacing:-.02em}
+.addr-badge{background:var(--orange);color:#fff;border-radius:100px;padding:2px 10px;font:800 10px var(--b);letter-spacing:.04em;text-transform:uppercase}
+.addr p{font-size:13px;color:#4a4d4c;line-height:1.55}
+.addr-act{display:flex;gap:16px;margin-top:6px}
+.acc .link{text-decoration:none}
+.acc .link:hover{text-decoration:underline}
+.acc .link.danger{color:#d63d1a}
+.addr-add{border:1.5px dashed #d9d6cb;border-radius:16px;padding:18px;display:grid;grid-template-columns:180px minmax(0,1fr) auto;gap:14px;align-items:end}
+.addr-add .btn{padding:14px 22px;white-space:nowrap}
+.addr-add .acc-msg{grid-column:1/-1}
+
+/* Đơn đã đặt */
+.ord-list{display:grid;gap:14px}
+.ord{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff}
+.ord-h{display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;padding:15px 20px;background:#fcfcfa;border-bottom:1px solid var(--line)}
+.ord-code{font:800 15px var(--d);letter-spacing:-.02em}
+.ord-code span{display:block;font:500 12px var(--b);letter-spacing:0;color:var(--mute);margin-top:1px}
+.ord-st{border-radius:100px;padding:5px 13px;font:800 11px var(--b);white-space:nowrap}
+.st-new{background:#fff4d6;color:#9a6a00}
+.st-confirmed{background:#e3efff;color:#1f5fbf}
+.st-preparing{background:#ffe9dd;color:#c4501b}
+.st-delivering{background:#efe6ff;color:#6a3dc0}
+.st-done{background:#e0f4e8;color:#2a7a4b}
+.st-cancelled{background:#f1efe9;color:#8a8780}
+.ord-items{list-style:none;padding:14px 20px;display:grid;gap:9px;font-size:13px}
+.ord-items li{display:flex;align-items:baseline;gap:10px}
+.ord-items .q{flex:none;min-width:30px;text-align:center;background:var(--bg);border-radius:8px;padding:2px 6px;font:800 12px var(--b)}
+.ord-items small{display:block;color:var(--mute);font-size:12px}
+.ord-f{display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;padding:14px 20px;border-top:1px dashed var(--line);font-size:12px;color:var(--mute)}
+.ord-f strong{font:800 18px var(--d);letter-spacing:-.04em;color:var(--ink)}
+.ord-pay{display:inline-flex;align-items:center;gap:6px}
+.ord-pay i{width:7px;height:7px;border-radius:50%;background:#c9c7bf}
+.ord-pay.paid i{background:var(--ok)}
+.ord-pay.failed i{background:#d63d1a}
+
+.acc-empty{text-align:center;padding:26px 10px 10px;color:var(--mute);font-size:14px}
+.acc-empty span{display:block;font-size:34px;margin-bottom:6px}
+.addr-list + .addr-add,.acc-empty + .addr-add{margin-top:14px}
+
+@media (max-width:900px){
+  .acc{padding:28px 16px 70px}
+  .acc-grid{grid-template-columns:1fr}
+  .acc-side{position:static}
+  .acc-card{padding:22px}
+  .acc-row,.addr-list{grid-template-columns:1fr}
+  .addr-add{grid-template-columns:1fr}
+}
+/* Đổi điểm lấy voucher */
+.tier-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
+.tier{border:1px dashed var(--orange);background:var(--peach);border-radius:16px;padding:18px;display:grid;gap:6px;align-content:start}
+.tier strong{font:800 24px var(--d);letter-spacing:-.05em;color:var(--ink)}
+.tier small{font-size:12px;color:var(--mute);line-height:1.5;margin-bottom:8px}
+.vc-title{font:800 15px var(--d);margin:26px 0 12px}
+.vc-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.vc{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid var(--line);border-radius:14px;padding:12px 16px}
+.vc b{display:block;font:800 16px var(--d)}
+.vc small{font-size:12px;color:var(--mute)}
+.vc>span{font:800 12px var(--b);color:#2e9e5b;white-space:nowrap}
+.vc.used,.vc.expired{opacity:.55}.vc.used>span,.vc.expired>span{color:var(--mute)}

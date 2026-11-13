@@ -1,0 +1,47 @@
+/* Trang Cửa hàng — class bắt đầu bằng st- */
+.st{max-width:1120px;margin:0 auto;padding:44px 24px 96px}
+.st-hero{position:relative;overflow:hidden;background:var(--coal);color:#fff;border-radius:26px;padding:44px 48px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.st-hero::after{content:"✳";position:absolute;right:-30px;top:-60px;font-size:260px;line-height:1;color:#ffffff08;pointer-events:none}
+.st-hero .eyebrow{color:#fcb89b}
+.st-hero h1{font:800 clamp(30px,4.2vw,46px) var(--d);letter-spacing:-.055em;line-height:1.08;max-width:560px}
+.st-hero p{margin-top:12px;color:#ffffffb3;font-size:15px;max-width:480px}
+.st-locate{display:flex;flex-direction:column;align-items:flex-start;gap:10px;position:relative;z-index:1}
+.st-locate .btn{padding:15px 24px;gap:9px}
+.st-locate small{font-size:12px;color:#ffffff99}
+.st-reset{background:none;border:0;color:var(--green);font:800 12px var(--b);cursor:pointer;padding:0;text-decoration:underline}
+.st-msg{background:#fde8e4;color:#b8321a;border-radius:12px;padding:13px 16px;font-size:13px;font-weight:700;margin-bottom:18px}
+
+.st-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.st-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px;display:grid;gap:16px;box-shadow:0 14px 40px #201b140a;transition:.2s;align-content:start}
+.st-card:hover{transform:translateY(-3px);border-color:#f3c9b6;box-shadow:0 20px 50px #201b1414}
+.st-card.near{border-color:var(--orange);background:linear-gradient(180deg,var(--peach),#fff 55%)}
+.st-top{display:flex;align-items:flex-start;gap:14px}
+.st-ic{width:46px;height:46px;border-radius:14px;background:var(--peach);color:var(--orange);display:grid;place-items:center;flex:none}
+.st-card.near .st-ic{background:var(--orange);color:#fff}
+.st-top h3{font:800 18px var(--d);letter-spacing:-.04em;line-height:1.25}
+.st-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.st-tag{border-radius:100px;padding:3px 11px;font:800 11px var(--b);white-space:nowrap}
+.st-tag.near{background:var(--orange);color:#fff}
+.st-tag.dist{background:var(--bg);color:#4a4d4c}
+.st-tag.open{background:#e0f4e8;color:#2a7a4b}
+.st-tag.closed{background:#f1efe9;color:#8a8780}
+.st-info{display:grid;gap:10px;font-size:14px;color:#4a4d4c}
+.st-info div{display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.st-info svg{flex:none;margin-top:3px;color:var(--mute)}
+.st-act{display:flex;gap:10px;flex-wrap:wrap;padding-top:4px}
+.st-act a{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;padding:12px 20px;font:800 13px var(--b);text-decoration:none;transition:.2s}
+.st-act .go{background:var(--orange);color:#fff}
+.st-act .go:hover{background:var(--orange-dk)}
+.st-act .call{border:1px solid var(--line);color:var(--ink);background:#fff}
+.st-act .call:hover{border-color:var(--orange);color:var(--orange)}
+
+.st-skel{height:230px;border-radius:22px;background:linear-gradient(90deg,#efede6 25%,#f7f6f2 50%,#efede6 75%);background-size:200% 100%;animation:stsk 1.2s infinite}
+@keyframes stsk{to{background-position:-200% 0}}
+.st-empty{grid-column:1/-1;text-align:center;background:#fff;border:1px solid var(--line);border-radius:22px;padding:50px 20px;color:var(--mute)}
+.st-empty span{display:block;font-size:40px;margin-bottom:8px}
+
+@media (max-width:820px){
+  .st{padding:24px 16px 70px}
+  .st-hero{padding:30px 24px;border-radius:22px}
+  .st-grid{grid-template-columns:1fr}
+}
