@@ -12,7 +12,6 @@
 Chạy các file còn thiếu trong `supabase/upgrades-rieng/` theo thứ tự: upgrade2 → upgrade3 → upgrade4 → upgrade5 → upgrade6.
 
 ## Tuỳ chọn
-- VNPay: điền `VNP_*` trong `.env.local` (sandbox: https://sandbox.vnpayment.vn/devreg). Khi deploy: đổi `VNP_RETURN_URL`, khai báo IPN `https://tên-miền/api/payment/vnpay/ipn`.
 - QR chuyển khoản: điền `NEXT_PUBLIC_BANK_*`.
 - Email đơn mới: `RESEND_API_KEY`, `NOTIFY_EMAIL`. Live chat: `NEXT_PUBLIC_TAWK_SRC`.
 - Deploy: Vercel, thêm các biến trong `.env.local` vào Environment Variables.
