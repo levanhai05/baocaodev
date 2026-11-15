@@ -29,7 +29,7 @@ export default function StaffAdmin() {
     const form = e.currentTarget;
     const f = new FormData(form);
     setBusy(true); setMsg("");
-    const r = await api("POST", { name: f.get("name"), email: f.get("email"), password: f.get("password") });
+    const r = await api("POST", { name: f.get("name"), email: f.get("email") });
     const d = await r.json();
     setBusy(false);
     setMsg(r.ok ? "Đã tạo tài khoản nhân viên." : d.error);
@@ -47,8 +47,7 @@ export default function StaffAdmin() {
       <h2>Thêm nhân viên</h2>
       <form onSubmit={add} className="pform">
         <label>Họ tên<input name="name" /></label>
-        <label>Email đăng nhập<input name="email" type="email" required /></label>
-        <label>Mật khẩu (tối thiểu 6 ký tự)<input name="password" type="text" required minLength={6} /></label>
+        <label>Email Gmail đăng nhập<input name="email" type="email" required /></label>
         <div className="wide"><button className="btn small" disabled={busy}>{busy ? "Đang tạo…" : "Tạo tài khoản"}</button></div>
       </form>
       {msg && <p role="status">{msg}</p>}

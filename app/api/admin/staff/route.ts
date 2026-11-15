@@ -18,9 +18,9 @@ export async function POST(req: Request) {
   const db = await requireAdmin(req);
   if (!db) return deny();
   const b = await req.json().catch(() => null);
-  if (!b?.email?.trim() || (b?.password ?? "").length < 6) return err("Nhập email và mật khẩu (tối thiểu 6 ký tự).");
-  const { data, error } = await db.auth.admin.createUser({ email: b.email.trim(), password: b.password, email_confirm: true });
-  if (error || !data.user) return err(error?.message.includes("already") ? "Email này đã có tài khoản." : error?.message ?? "Không tạo được tài khoản.");
+  if (!b?.email?.trim()) return err("Nhập email Gmail của nhân viên.");
+  const { data, error } = await db.auth.admin.createUser({ email: b.email.trim().toLowerCase(), email_confirm: true });
+  if (error || !data.user) return err(error?.message.includes("already") ? "Email này đã có tài khoản (đã từng đăng nhập). Hãy thêm nhân viên trước khi họ đăng nhập lần đầu." : error?.message ?? "Không tạo được tài khoản.");
   const r = await db.from("staff").insert({ user_id: data.user.id, name: b.name?.trim() || null });
   if (r.error) { await db.auth.admin.deleteUser(data.user.id); return err(r.error.message, 500); }
   return NextResponse.json({ ok: true });

@@ -129,7 +129,7 @@ export default async function Home() {
         <WeekendDeal />
         {shelf(<>Combo <em>nổi bật</em></>, "Tiết kiệm hơn khi đi nhóm", combos)}
 
-        <Menu categories={categories} products={products} ratings={ratings} />
+        <Menu categories={categories} products={products} ratings={ratings} limit={15} />
 
         <section className="about" id="story">
           <div>
@@ -194,7 +194,7 @@ export default async function Home() {
         <div className="foot-bottom"><span>© 2026 {BRAND}</span><span>Giao hàng nội thành</span></div>
       </footer>
       <CartDrawer />
-      <ChatBot products={products} categories={categories} shipFee={st.ship_fee} freeShipFrom={st.free_ship_from} />
+      <ChatBot products={products} categories={categories} shipFee={st.ship_fee} freeShipFrom={st.free_ship_from} hotline={st.hotline} address={st.address} isOpen={st.is_open} />
     </>
   );
 }

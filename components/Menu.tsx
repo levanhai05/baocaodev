@@ -1,12 +1,13 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import ProductCard from "./ProductCard";
 import { useCart } from "./CartProvider";
 import { effectivePrice, type Category, type Product } from "@/lib/types";
 
 type Ratings = Record<number, { avg: number; count: number }>;
 
-export default function Menu({ categories, products, ratings }: { categories: Category[]; products: Product[]; ratings: Ratings }) {
+export default function Menu({ categories, products, ratings, limit }: { categories: Category[]; products: Product[]; ratings: Ratings; limit?: number }) {
   const [cat, setCat] = useState<number | "fav" | null>(null);
   const [q, setQ] = useState("");
   const [sort, setSort] = useState("default");
@@ -18,6 +19,10 @@ export default function Menu({ categories, products, ratings }: { categories: Ca
     .filter((p) => p.is_available && (cat === null || (cat === "fav" ? favs.includes(p.id) : p.category_id === cat))
       && p.name.toLowerCase().includes(q.toLowerCase()) && inRange(effectivePrice(p)))
     .sort((a, b) => sort === "asc" ? effectivePrice(a) - effectivePrice(b) : sort === "desc" ? effectivePrice(b) - effectivePrice(a) : a.id - b.id);
+
+  // limit: chỉ hiện tối đa N món, phần còn lại xem ở trang /menu
+  const shown = limit ? list.slice(0, limit) : list;
+  const hidden = list.length - shown.length;
 
   return (
     <section id="menu" className="menu">
@@ -50,9 +55,14 @@ export default function Menu({ categories, products, ratings }: { categories: Ca
         <input className="search" placeholder="Tìm món…" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Tìm món" />
       </div>
       <div className="grid">
-        {list.map((p) => <ProductCard key={p.id} product={p} rating={ratings[p.id]} />)}
+        {shown.map((p) => <ProductCard key={p.id} product={p} rating={ratings[p.id]} />)}
         {list.length === 0 && <p>Không tìm thấy món phù hợp.</p>}
       </div>
+      {hidden > 0 && (
+        <div style={{ display: "flex", justifyContent: "center", marginTop: 32 }}>
+          <Link href="/menu" className="btn ghost">Xem thêm {hidden} món →</Link>
+        </div>
+      )}
     </section>
   );
 }

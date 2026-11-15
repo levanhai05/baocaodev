@@ -18,6 +18,10 @@ const CHIPS: [string, string, string][] = [
   ["🥗", "Ăn nhẹ", "Muốn ăn nhẹ, ít béo"],
   ["🌶️", "Thích cay", "Mình thích ăn cay"],
   ["🥤", "Đồ uống", "Gợi ý đồ uống"],
+  ["🛵", "Phí giao hàng", "Phí ship bao nhiêu?"],
+  ["📦", "Theo dõi đơn", "Làm sao theo dõi đơn hàng?"],
+  ["🎟️", "Mã giảm giá", "Nhập mã giảm giá ở đâu?"],
+  ["🕘", "Giờ mở cửa", "Quán mở cửa mấy giờ?"],
 ];
 
 function Thumb({ p }: { p: Product }) {
@@ -29,14 +33,14 @@ function Thumb({ p }: { p: Product }) {
   );
 }
 
-export default function ChatBot({ products, categories, shipFee, freeShipFrom }: { products: Product[]; categories: Category[]; shipFee: number; freeShipFrom: number }) {
+export default function ChatBot({ products, categories, shipFee, freeShipFrom, hotline, address, isOpen }: { products: Product[]; categories: Category[]; shipFee: number; freeShipFrom: number; hotline?: string; address?: string; isOpen?: boolean }) {
   const [open, setOpen] = useState(false);
   const [tip, setTip] = useState(false);
   const [typing, setTyping] = useState(false);
   const [input, setInput] = useState("");
   const [pick, setPick] = useState<Product | null>(null);
   const [msgs, setMsgs] = useState<Msg[]>([
-    { id: 0, role: "bot", reply: { text: `Chào bạn 👋 Mình là trợ lý chọn món của ${BRAND}. Chưa biết ăn gì thì chọn một gợi ý bên dưới, hoặc nhắn ngân sách, số người, món bạn thích nhé.` } },
+    { id: 0, role: "bot", reply: { text: `Chào bạn 👋 Mình là trợ lý của ${BRAND}. Mình gợi ý món theo ngân sách, số người, khẩu vị, và giải đáp về giao hàng, thanh toán, mã giảm giá, theo dõi đơn. Chọn một gợi ý bên dưới hoặc nhắn thẳng cho mình nhé.` } },
   ]);
   const idRef = useRef(1);
   const endRef = useRef<HTMLDivElement>(null);
@@ -69,7 +73,7 @@ export default function ChatBot({ products, categories, shipFee, freeShipFrom }:
     setInput("");
     setTyping(true);
     timers.current.push(setTimeout(() => {
-      const reply = respond(q, products, categories, { shipFee, freeShipFrom });
+      const reply = respond(q, products, categories, { shipFee, freeShipFrom, hotline, address, isOpen });
       setMsgs((m) => [...m, { id: idRef.current++, role: "bot", reply }]);
       setTyping(false);
     }, 550));
@@ -127,16 +131,6 @@ export default function ChatBot({ products, categories, shipFee, freeShipFrom }:
               </div>
             ))}
 
-            {!started && (
-              <div className="cb-start">
-                {CHIPS.map(([ic, label, text]) => (
-                  <button key={text} type="button" className="cb-card" onClick={() => send(text)}>
-                    <span className="cb-ic" aria-hidden>{ic}</span>{label}
-                  </button>
-                ))}
-              </div>
-            )}
-
             {typing && (
               <div className="cb-row bot">
                 <span className="cb-ba" aria-hidden><LogoMark size={16} /></span>
@@ -146,11 +140,9 @@ export default function ChatBot({ products, categories, shipFee, freeShipFrom }:
             <div ref={endRef} />
           </div>
 
-          {started && (
-            <div className="cb-chips" ref={chipsRef}>
-              {CHIPS.map(([ic, label, text]) => <button key={text} type="button" className="cb-chip" onClick={() => send(text)} disabled={typing}>{ic} {label}</button>)}
-            </div>
-          )}
+          <div className="cb-chips" ref={chipsRef}>
+            {CHIPS.map(([ic, label, text]) => <button key={text} type="button" className="cb-chip" onClick={() => send(text)} disabled={typing}>{ic} {label}</button>)}
+          </div>
           <form className="cb-form" onSubmit={(e) => { e.preventDefault(); send(input); }}>
             <div className="cb-field">
               <input value={input} onChange={(e) => setInput(e.target.value)} placeholder="VD: 2 người, 150k, thích cay…" aria-label="Nhập câu hỏi" maxLength={120} />

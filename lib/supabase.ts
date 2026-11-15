@@ -8,6 +8,7 @@ export const supabase = createClient(url, key);
 
 // Quản trị / nhân viên (/admin, /staff): khoá lưu phiên RIÊNG,
 // nên đăng nhập/đăng xuất ở trang khách không ảnh hưởng admin và ngược lại.
+// flowType pkce: đăng nhập Google an toàn hơn và chỉ client admin xử lý callback.
 export const supabaseAdmin = createClient(url, key, {
-  auth: { storageKey: "burger-nha-admin-auth" },
+  auth: { storageKey: "burger-nha-admin-auth", flowType: "pkce" },
 });
