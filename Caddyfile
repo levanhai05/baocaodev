@@ -1,0 +1,3 @@
+burgernha.duckdns.org {
+    reverse_proxy web:3000
+}

@@ -13,5 +13,21 @@ services:
     container_name: burger-web
     restart: always
     env_file: .env          # biến runtime (secret) đọc từ file .env trên EC2
+    expose:
+      - "3000"              # chỉ Caddy truy cập nội bộ
+
+  caddy:
+    image: caddy:2
+    container_name: burger-caddy
+    restart: always
     ports:
-      - "80:3000"           # truy cập http://IP/ không cần gõ cổng
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+    depends_on:
+      - web
+
+volumes:
+  caddy_data:
