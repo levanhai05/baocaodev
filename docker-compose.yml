@@ -9,6 +9,7 @@ services:
         NEXT_PUBLIC_BANK_ACCOUNT: ${NEXT_PUBLIC_BANK_ACCOUNT}
         NEXT_PUBLIC_BANK_NAME: ${NEXT_PUBLIC_BANK_NAME}
         NEXT_PUBLIC_TAWK_SRC: ${NEXT_PUBLIC_TAWK_SRC}
+        NEXT_PUBLIC_GOOGLE_CLIENT_ID: ${NEXT_PUBLIC_GOOGLE_CLIENT_ID}
     container_name: burger-web
     restart: always
     env_file: .env          # biến runtime (secret) đọc từ file .env trên EC2
