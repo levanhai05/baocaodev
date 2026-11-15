@@ -1,0 +1,16 @@
+services:
+  web:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+        NEXT_PUBLIC_BANK_ID: ${NEXT_PUBLIC_BANK_ID}
+        NEXT_PUBLIC_BANK_ACCOUNT: ${NEXT_PUBLIC_BANK_ACCOUNT}
+        NEXT_PUBLIC_BANK_NAME: ${NEXT_PUBLIC_BANK_NAME}
+        NEXT_PUBLIC_TAWK_SRC: ${NEXT_PUBLIC_TAWK_SRC}
+    container_name: burger-web
+    restart: always
+    env_file: .env          # biến runtime (secret) đọc từ file .env trên EC2
+    ports:
+      - "80:3000"           # truy cập http://IP/ không cần gõ cổng
