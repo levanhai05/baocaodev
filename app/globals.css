@@ -585,3 +585,86 @@ a.cartbar{text-decoration:none}
 .wk-status.on{background:#e6f5ec;color:#2e9e5b}.wk-status.on i{background:#2e9e5b}
 .wk-label{font:800 13px var(--b);color:var(--ink)}
 @media(max-width:800px){.wk-hero{grid-template-columns:1fr;padding:26px 22px}.wk-img{min-height:180px;max-height:220px}.wk-bar{padding:16px 18px}.wk-bar .btn{width:100%}}
+
+
+/* Quản lý nhân viên */
+.staff-page {
+  width: 100%;
+}
+
+.staff-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 22px 0 28px;
+}
+
+.staff-stat {
+  background: #fff;
+  border: 1px solid #eee9e4;
+  border-radius: 14px;
+  padding: 18px;
+  display: grid;
+  gap: 8px;
+}
+
+.staff-stat span {
+  color: #81776f;
+  font-size: 13px;
+}
+
+.staff-stat strong {
+  color: #292522;
+  font-size: 25px;
+}
+
+.staff-form {
+  max-width: 850px;
+}
+
+.staff-form input,
+.staff-form select,
+.staff-table input,
+.staff-table select {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 38px;
+  border: 1px solid #e8e2dc;
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: #fff;
+  color: #302b27;
+}
+
+.staff-message {
+  margin: 16px 0;
+  color: #b95325;
+  font-weight: 600;
+}
+
+.staff-table {
+  min-width: 950px;
+}
+
+.staff-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+@media (max-width: 850px) {
+  .staff-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .staff-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .staff-stat {
+    padding: 12px;
+  }
+}
