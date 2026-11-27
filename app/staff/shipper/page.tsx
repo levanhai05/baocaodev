@@ -1,4 +1,3 @@
-
 "use client";
 
 import {
@@ -7,7 +6,6 @@ import {
   useState,
 } from "react";
 import type { CSSProperties } from "react";
-import { useRouter } from "next/navigation";
 import { supabaseAdmin } from "@/lib/supabase";
 
 type OrderItem = {
@@ -164,8 +162,6 @@ const FILTERS: {
 ];
 
 export default function ShipperPage() {
-  const router = useRouter();
-
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -293,12 +289,6 @@ export default function ShipperPage() {
           ? doneOrders
           : orders;
 
-  // Đăng xuất.
-  const logout = async () => {
-    await supabaseAdmin.auth.signOut();
-    router.push("/admin/login");
-  };
-
   return (
     <main style={styles.page}>
       <div style={styles.container}>
@@ -318,13 +308,6 @@ export default function ShipperPage() {
               Khu vực nhân viên giao hàng
             </div>
           </div>
-
-          <button
-            style={styles.secondaryButton}
-            onClick={logout}
-          >
-            Đăng xuất
-          </button>
         </header>
 
         {/* TIÊU ĐỀ */}

@@ -1,9 +1,7 @@
-
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
 import type { CSSProperties } from "react";
-import { useRouter } from "next/navigation";
 import { supabaseAdmin } from "@/lib/supabase";
 
 type OrderItem = {
@@ -142,8 +140,6 @@ const FILTERS: {
 ];
 
 export default function KitchenPage() {
-  const router = useRouter();
-
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -275,12 +271,6 @@ export default function KitchenPage() {
           ? readyOrders
           : orders;
 
-  // Đăng xuất.
-  const logout = async () => {
-    await supabaseAdmin.auth.signOut();
-    router.push("/admin/login");
-  };
-
   return (
     <main style={styles.page}>
       <div style={styles.container}>
@@ -300,13 +290,6 @@ export default function KitchenPage() {
               Khu vực tiếp nhận và chuẩn bị đơn hàng
             </div>
           </div>
-
-          <button
-            style={styles.secondaryButton}
-            onClick={logout}
-          >
-            Đăng xuất
-          </button>
         </header>
 
         {/* TIÊU ĐỀ */}
