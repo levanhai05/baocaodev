@@ -220,8 +220,9 @@ export async function DELETE(req: Request) {
       );
     }
 
-    const { searchParams } = new URL(req.url);
-    const userId = searchParams.get("user_id");
+        const { searchParams } = new URL(req.url);
+    const body = await req.json().catch(() => ({}));
+    const userId = searchParams.get("user_id") ?? body.user_id;
 
     if (!userId) {
       return NextResponse.json(
