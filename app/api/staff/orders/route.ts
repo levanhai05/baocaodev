@@ -1,6 +1,6 @@
-
 import { NextResponse } from "next/server";
 import { requireStaff } from "@/lib/server";
+import { broadcast, notifyAdmin, shipperChannel } from "@/lib/realtime";
 
 // GET: Lấy đơn hàng theo vai trò và chi nhánh.
 export async function GET(req: Request) {
@@ -110,7 +110,7 @@ export async function PATCH(req: Request) {
       .eq("id", order_id)
       .eq("store_id", staff.store_id)
       .in("status", ["new", "confirmed"])
-      .select("id")
+      .select("id, code")
       .maybeSingle();
 
     if (error) {
@@ -128,6 +128,8 @@ export async function PATCH(req: Request) {
         { status: 409 }
       );
     }
+
+    await notifyAdmin("order_start", data.code, `Bếp (${staff.name ?? (staff.role === "kitchen" ? "Bếp" : "Shipper")}) đã nhận đơn và bắt đầu chuẩn bị`);
 
     return NextResponse.json({
       success: true,
@@ -155,6 +157,15 @@ export async function PATCH(req: Request) {
       );
     }
 
+    // Thông báo realtime cho Shipper vừa được phân công + Admin
+    const { data: o } = await db.from("orders").select("code").eq("id", order_id).maybeSingle();
+    if (data?.assigned_shipper_id) {
+      await broadcast(shipperChannel(data.assigned_shipper_id), {
+        kind: "order_ready", code: o?.code ?? "", text: "Bếp đã làm xong món, mời bạn đến lấy hàng giao!",
+      });
+    }
+    await notifyAdmin("order_ready", o?.code ?? "", `Bếp (${staff.name ?? (staff.role === "kitchen" ? "Bếp" : "Shipper")}) đã làm xong món. ${data?.message ?? ""}`);
+
     return NextResponse.json(data);
   }
 
@@ -169,7 +180,7 @@ export async function PATCH(req: Request) {
       .eq("store_id", staff.store_id)
       .eq("assigned_shipper_id", user.id)
       .eq("status", "ready")
-      .select("id")
+      .select("id, code")
       .maybeSingle();
 
     if (error) {
@@ -187,6 +198,8 @@ export async function PATCH(req: Request) {
         { status: 409 }
       );
     }
+
+    await notifyAdmin("delivering", data.code, `Shipper (${staff.name ?? (staff.role === "kitchen" ? "Bếp" : "Shipper")}) bắt đầu giao đơn`);
 
     return NextResponse.json({
       success: true,
@@ -206,7 +219,7 @@ export async function PATCH(req: Request) {
       .eq("store_id", staff.store_id)
       .eq("assigned_shipper_id", user.id)
       .eq("status", "delivering")
-      .select("id")
+      .select("id, code")
       .maybeSingle();
 
     if (error) {
@@ -224,6 +237,8 @@ export async function PATCH(req: Request) {
         { status: 409 }
       );
     }
+
+    await notifyAdmin("delivered", data.code, `Shipper (${staff.name ?? (staff.role === "kitchen" ? "Bếp" : "Shipper")}) đã giao thành công`);
 
     return NextResponse.json({
       success: true,

@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -6,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { supabaseAdmin as supabase } from "@/lib/supabase";
 import { LogoMark } from "@/components/Logo";
+import StaffBell from "@/components/StaffBell";
 
 type Role = "kitchen" | "shipper";
 
@@ -22,6 +22,7 @@ export default function StaffLayout({
   const [email, setEmail] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [role, setRole] = useState<Role | null>(null);
+  const [channel, setChannel] = useState("");
 
   useEffect(() => {
     let alive = true;
@@ -88,6 +89,11 @@ export default function StaffLayout({
 
       const staffRole = staff.role as Role;
       setRole(staffRole);
+      setChannel(
+        staffRole === "kitchen"
+          ? `staff-kitchen-${staff.store_id}`
+          : `staff-shipper-${session.user.id}`
+      );
 
       const target =
         staffRole === "kitchen"
@@ -196,6 +202,8 @@ export default function StaffLayout({
 
         <nav>
           {isAdmin && <Link href="/admin">Trang quản trị</Link>}
+
+          {channel && <StaffBell channel={channel} />}
 
           <button
             onClick={async () => {

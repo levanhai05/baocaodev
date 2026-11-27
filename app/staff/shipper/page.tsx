@@ -208,14 +208,18 @@ export default function ShipperPage() {
   }, []);
 
   // Tự động cập nhật mỗi 10 giây.
-  useEffect(() => {
+    useEffect(() => {
     loadOrders();
 
     const timer = window.setInterval(() => {
       loadOrders();
     }, 10000);
+    window.addEventListener("staff-refresh", loadOrders);
 
-    return () => window.clearInterval(timer);
+    return () => {
+      window.clearInterval(timer);
+      window.removeEventListener("staff-refresh", loadOrders);
+    };
   }, [loadOrders]);
 
   // Thực hiện thao tác với đơn hàng.

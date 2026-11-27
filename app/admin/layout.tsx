@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { supabaseAdmin as supabase } from "@/lib/supabase";
 import { LogoMark } from "@/components/Logo";
+import StaffBell from "@/components/StaffBell";
 type State = "check" | "ok" | "denied" | "error";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -92,7 +93,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <Link href="/"><span>↗</span>Xem website</Link>
         <button onClick={async () => { await supabase.auth.signOut(); router.replace("/admin/login"); }}><span>⎋</span>Đăng xuất</button>
       </aside>
-      <section>{children}</section>
+      <section style={{ position: "relative" }}>
+        <div style={{ position: "absolute", top: 40, right: "min(4vw,58px)", zIndex: 20 }}>
+          <StaffBell channel="staff-admin" admin />
+        </div>
+        {children}
+      </section>
     </div>
   );
 }

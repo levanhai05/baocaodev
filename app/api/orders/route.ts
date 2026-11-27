@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { broadcast, kitchenChannel, notifyAdmin } from "@/lib/realtime";
 import { clientIp, genCode, service } from "@/lib/server";
 import { effectivePrice, vnd, type OptionGroup } from "@/lib/types";
 import { applyCoupon } from "@/lib/coupon";
@@ -110,6 +111,11 @@ export async function POST(req: Request) {
   if (o.error) { await release(); return bad("Không tạo được đơn hàng.", 500); }
   const oi = await db.from("order_items").insert(rows);
   if (oi.error) { await db.from("orders").delete().eq("id", orderId); await release(); return bad("Không lưu được món trong đơn.", 500); }
+
+  // Thông báo realtime cho Bếp của chi nhánh nhận đơn
+  const { data: ord } = await db.from("orders").select("store_id").eq("id", orderId).maybeSingle();
+  if (ord?.store_id != null) await broadcast(kitchenChannel(ord.store_id), { kind: "new_order", code, text: "Có đơn hàng mới!" });
+  await notifyAdmin("new_order", code, `Khách ${b.name.trim()} vừa đặt đơn mới (${vnd(total)})`);
 
   // Email thông báo (cần RESEND_API_KEY; bỏ qua nếu chưa cấu hình)
   const list = rows.map((r) => `<li>${r.name} × ${r.qty}${r.options ? ` (${r.options})` : ""}</li>`).join("");

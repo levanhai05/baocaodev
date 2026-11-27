@@ -14,8 +14,12 @@ export default function Orders() {
     if (error) setErr(error.message); else setOrders(data as Order[]);
   }, []);
 
-  useEffect(() => { load(); const t = setInterval(load, 15000); return () => clearInterval(t); }, [load]);
-
+  useEffect(() => {
+    load();
+    const t = setInterval(load, 15000);
+    window.addEventListener("staff-refresh", load);
+    return () => { clearInterval(t); window.removeEventListener("staff-refresh", load); };
+  }, [load]);
   async function setStatus(id: string, status: string) {
     const { error } = await supabase.from("orders").update({ status }).eq("id", id);
     if (error) setErr(error.message); else load();

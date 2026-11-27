@@ -186,14 +186,18 @@ export default function KitchenPage() {
   }, []);
 
   // Tự động tải lại sau mỗi 10 giây.
-  useEffect(() => {
+    useEffect(() => {
     loadOrders();
 
     const timer = window.setInterval(() => {
       loadOrders();
     }, 10000);
+    window.addEventListener("staff-refresh", loadOrders);
 
-    return () => window.clearInterval(timer);
+    return () => {
+      window.clearInterval(timer);
+      window.removeEventListener("staff-refresh", loadOrders);
+    };
   }, [loadOrders]);
 
   // Bếp thực hiện thao tác với đơn.
